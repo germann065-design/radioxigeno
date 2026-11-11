@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Radio Oxígeno - En Vivo</title>
+
+  <!-- Script Oficial de Widgets SonicPanel -->
+  <script id="sonic_js" data-port="8002" src="https://stream13.hcnetwork.net/cp/widgets.js?r=526"></script>
+
   <style>
     * {
       margin: 0;
@@ -35,23 +39,38 @@
       left: 50%;
       transform: translateX(-50%);
       z-index: 2;
-      background: rgba(0, 0, 0, 0.7);
-      padding: 15px 25px;
-      border-radius: 50px;
-      backdrop-filter: blur(5px);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.8);
+      padding: 20px 30px;
+      border-radius: 25px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+      text-align: center;
+      color: #ffffff;
+      min-width: 320px;
+    }
+
+    .song-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 12px;
+      color: #00e5ff;
     }
 
     audio {
       outline: none;
+      width: 100%;
     }
   </style>
 </head>
 <body>
+  <!-- Imagen de fondo -->
   <img src="Gemini_Generated_Image_e1vv9qa1vv8qa1vv.png" alt="Radio Oxígeno" class="bg-image">
+
+  <!-- Contenedor del Reproductor y Metadatos -->
   <div class="player-container">
+    <div id="sonic_title" class="song-title">Cargando canción...</div>
     <audio controls autoplay>
-      <source src="https://192.99.16.17:8690/stream" type="audio/mpeg">
+      <source src="https://stream13.hcnetwork.net:8002/stream" type="audio/mpeg">
       Tu navegador no soporta el reproductor de audio.
     </audio>
   </div>
