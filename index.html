@@ -1,13 +1,22 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
     <title>Radio Oxígeno</title>
+
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             padding: 0;
-            height: 100vh;
+            min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -15,30 +24,37 @@
             overflow: hidden;
             font-family: sans-serif;
         }
-        #fondo-radio {
-            position: absolute;
-            top: 0;
-            left: 0;
+
+        .fondo {
+            position: fixed;
+            inset: 0;
             width: 100%;
             height: 100%;
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
             transition: opacity 2s ease-in-out;
-            opacity: 1;
-            z-index: -1;
-        }
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.45);
             z-index: 0;
         }
+
+        #fondo1 {
+            opacity: 1;
+        }
+
+        #fondo2 {
+            opacity: 0;
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 1;
+        }
+
         .player-box {
             position: relative;
-            z-index: 1;
+            z-index: 2;
             background: rgba(20, 20, 20, 0.85);
             padding: 35px;
             border-radius: 16px;
@@ -46,13 +62,16 @@
             text-align: center;
             border: 1px solid rgba(255,255,255,0.15);
             width: 320px;
+            max-width: calc(100% - 30px);
         }
+
         h1 {
             color: #ff5722;
             margin-bottom: 20px;
             font-size: 22px;
             letter-spacing: 2px;
         }
+
         .player-btn {
             background-color: #ff5722;
             color: white;
@@ -65,62 +84,212 @@
             transition: background 0.2s, transform 0.1s;
             box-shadow: 0 4px 12px rgba(255,87,34,0.4);
         }
+
         .player-btn:hover {
             background-color: #e64a19;
             transform: scale(1.03);
         }
+
+        .player-btn:disabled {
+            opacity: 0.7;
+            cursor: wait;
+        }
+
         .status-text {
             color: #aaa;
             font-size: 12px;
             margin-top: 15px;
             letter-spacing: 1px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 480px) {
+            .player-box {
+                padding: 28px 20px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
         }
     </style>
 </head>
-<body>
-    <div id="fondo-radio"></div>
-    <div class="overlay"></div>
-    <div class="player-box">
-        <h1>RADIO OXÍGENO</h1>
-        <button id="btnReproducir" class="player-btn" onclick="toggleRadio()">▶ ESCUCHAR</button>
-        <div id="statusText" class="status-text">TRANSMITIENDO EN VIVO</div>
-        <audio id="audioStream" src="https://stream13.hnetwork.net:8002/stream" preload="none"></audio>
-    </div>
-    <script>
-        const audio = document.getElementById('audioStream');
-        const btn = document.getElementById('btnReproducir');
-        const statusText = document.getElementById('statusText');
 
-        function toggleRadio() {
+<body>
+
+    <!-- FONDOS DE FOTOGRAFÍAS -->
+    <div id="fondo1" class="fondo"></div>
+    <div id="fondo2" class="fondo"></div>
+
+    <!-- OSCURECIMIENTO -->
+    <div class="overlay"></div>
+
+    <!-- REPRODUCTOR -->
+    <div class="player-box">
+
+        <h1>RADIO OXÍGENO</h1>
+
+        <button
+            id="btnReproducir"
+            class="player-btn"
+            type="button"
+        >
+            ▶ ESCUCHAR
+        </button>
+
+        <div id="statusText" class="status-text">
+            RADIO OXÍGENO - EN VIVO
+        </div>
+
+        <audio
+            id="audioStream"
+            preload="none"
+            playsinline
+        >
+            <source
+                src="https://stream13.hcnetwork.net/8002/stream"
+                type="audio/mpeg"
+            >
+        </audio>
+
+    </div>
+
+    <script>
+
+        // ==================================
+        // REPRODUCTOR RADIO OXÍGENO
+        // ==================================
+
+        const audio = document.getElementById("audioStream");
+        const btn = document.getElementById("btnReproducir");
+        const statusText = document.getElementById("statusText");
+
+        async function toggleRadio() {
+
             if (audio.paused) {
-                audio.play();
-                btn.innerText = "⏸ PAUSAR";
-                statusText.innerText = "SONANDO EN VIVO";
-                statusText.style.color = "#4caf50";
+
+                btn.disabled = true;
+                btn.innerText = "CONECTANDO...";
+                statusText.innerText = "CONECTANDO CON RADIO OXÍGENO...";
+                statusText.style.color = "#ffb74d";
+
+                try {
+
+                    await audio.play();
+
+                } catch (error) {
+
+                    btn.innerText = "▶ ESCUCHAR";
+                    statusText.innerText =
+                        "NO SE PUDO CONECTAR. INTENTA NUEVAMENTE.";
+                    statusText.style.color = "#ff5252";
+
+                    console.error("Error de reproducción:", error);
+
+                } finally {
+
+                    btn.disabled = false;
+
+                }
+
             } else {
+
                 audio.pause();
-                btn.innerText = "▶ ESCUCHAR";
-                statusText.innerText = "EN PAUSA";
-                statusText.style.color = "#aaa";
+
             }
         }
 
-        const imagenes = ['foto 1.jpg', 'foto 2.jpg', 'foto 3.jpg', 'foto 4.jpg'];
-        let index = 0;
-        const capaFondo = document.getElementById('fondo-radio');
+        btn.addEventListener("click", toggleRadio);
 
-        function cambiarFondoSuave() {
-            capaFondo.style.opacity = 0;
-            setTimeout(() => {
-                capaFondo.style.backgroundImage = `url('${imagenes[index]}')`;
-                capaFondo.style.opacity = 1;
-                index = (index + 1) % imagenes.length;
-            }, 1000);
+        audio.addEventListener("playing", function() {
+
+            btn.innerText = "⏸ PAUSAR";
+            statusText.innerText = "SONANDO EN VIVO";
+            statusText.style.color = "#4caf50";
+
+        });
+
+        audio.addEventListener("pause", function() {
+
+            btn.innerText = "▶ ESCUCHAR";
+            statusText.innerText = "EN PAUSA";
+            statusText.style.color = "#aaa";
+
+        });
+
+        audio.addEventListener("waiting", function() {
+
+            statusText.innerText = "CARGANDO TRANSMISIÓN...";
+            statusText.style.color = "#ffb74d";
+
+        });
+
+        audio.addEventListener("error", function() {
+
+            btn.innerText = "▶ ESCUCHAR";
+            statusText.innerText = "ERROR DE CONEXIÓN CON LA RADIO";
+            statusText.style.color = "#ff5252";
+
+        });
+
+
+        // ==================================
+        // ROTACIÓN DE LAS CUATRO FOTOGRAFÍAS
+        // ==================================
+
+        const imagenes = [
+            "foto 1.jpg",
+            "foto 2.jpg",
+            "foto 3.jpg",
+            "foto 4.jpg"
+        ];
+
+        let indice = 0;
+        let fondoVisible = 1;
+
+        const fondo1 = document.getElementById("fondo1");
+        const fondo2 = document.getElementById("fondo2");
+
+        // Cargar primera fotografía
+        fondo1.style.backgroundImage =
+            `url("${imagenes[0]}")`;
+
+        // Preparar fotografías
+        imagenes.forEach(function(foto) {
+
+            const img = new Image();
+            img.src = foto;
+
+        });
+
+        // Cambiar fotografía suavemente
+        function cambiarFotografia() {
+
+            indice = (indice + 1) % imagenes.length;
+
+            const nuevoFondo =
+                fondoVisible === 1 ? fondo2 : fondo1;
+
+            const fondoAnterior =
+                fondoVisible === 1 ? fondo1 : fondo2;
+
+            nuevoFondo.style.backgroundImage =
+                `url("${imagenes[indice]}")`;
+
+            nuevoFondo.style.opacity = "1";
+            fondoAnterior.style.opacity = "0";
+
+            fondoVisible = fondoVisible === 1 ? 2 : 1;
+
         }
 
-        capaFondo.style.backgroundImage = `url('${imagenes[index]}')`;
-        index = (index + 1) % imagenes.length;
-        setInterval(cambiarFondoSuave, 15 * 60 * 1000);
+        // Renovar fotografías cada 15 minutos
+        setInterval(
+            cambiarFotografia,
+            15 * 60 * 1000
+        );
+
     </script>
+
 </body>
 </html>
