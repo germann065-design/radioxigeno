@@ -2,294 +2,622 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#000000">
-    <title>Radio Oxígeno</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#08090d">
+<title>Radio Oxígeno | En Vivo</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<style>
+* {
+    box-sizing: border-box;
+}
 
-        body {
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            min-height: 100dvh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #000;
-            overflow: hidden;
-            font-family: sans-serif;
-        }
+body {
+    margin: 0;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #08090d;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow: hidden;
+}
 
-        .fondo {
-            position: fixed;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            transition: opacity 2s ease-in-out;
-            z-index: 0;
-        }
+/* FOTOGRAFÍAS DE FONDO */
 
-        #fondo1 {
-            opacity: 1;
-        }
+.fondo {
+    position: fixed;
+    inset: 0;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    transition: opacity 2s ease-in-out;
+    z-index: 0;
+}
 
-        #fondo2 {
-            opacity: 0;
-        }
+#fondo1 { opacity: 1; }
+#fondo2 { opacity: 0; }
 
-        .overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.45);
-            z-index: 1;
-        }
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(0,0,0,0.70),
+        rgba(0,0,0,0.40),
+        rgba(0,0,0,0.80)
+    );
+    z-index: 1;
+}
 
-        .player-box {
-            position: relative;
-            z-index: 2;
-            background: rgba(20, 20, 20, 0.85);
-            padding: 35px;
-            border-radius: 16px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
-            text-align: center;
-            border: 1px solid rgba(255,255,255,0.15);
-            width: 320px;
-            max-width: calc(100% - 30px);
-        }
+/* REPRODUCTOR PREMIUM */
 
-        h1 {
-            color: #ff5722;
-            margin-bottom: 20px;
-            font-size: 22px;
-            letter-spacing: 2px;
-        }
+.player {
+    position: relative;
+    z-index: 2;
+    width: 390px;
+    max-width: calc(100% - 28px);
+    padding: 36px 28px;
+    text-align: center;
+    background: linear-gradient(
+        145deg,
+        rgba(28,30,37,0.97),
+        rgba(9,10,15,0.97)
+    );
+    border: 1px solid rgba(255,169,69,0.35);
+    border-radius: 26px;
+    box-shadow:
+        0 25px 70px rgba(0,0,0,0.85),
+        0 0 35px rgba(255,115,20,0.12);
+}
 
-        .player-btn {
-            background-color: #ff5722;
-            color: white;
-            border: none;
-            padding: 14px 28px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: background 0.2s, transform 0.1s;
-            box-shadow: 0 4px 12px rgba(255,87,34,0.4);
-        }
+.superior {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+}
 
-        .player-btn:hover {
-            background-color: #e64a19;
-            transform: scale(1.03);
-        }
+.marca {
+    color: #b4b6bd;
+    font-size: 10px;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
 
-        .player-btn:disabled {
-            opacity: 0.7;
-            cursor: wait;
-        }
+.en-vivo {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 11px;
+    border-radius: 20px;
+    background: rgba(255,100,30,0.12);
+    border: 1px solid rgba(255,130,40,0.35);
+    color: #ffae58;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
 
-        .status-text {
-            color: #aaa;
-            font-size: 12px;
-            margin-top: 15px;
-            letter-spacing: 1px;
-            line-height: 1.5;
-        }
+.punto {
+    width: 7px;
+    height: 7px;
+    background: #ff642c;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #ff642c;
+    animation: pulso 1.8s infinite;
+}
 
-        @media (max-width: 480px) {
-            .player-box {
-                padding: 28px 20px;
-            }
+@keyframes pulso {
+    50% { opacity: 0.35; }
+}
 
-            h1 {
-                font-size: 20px;
-            }
-        }
-    </style>
+/* EMBLEMA CENTRAL */
+
+.emblema {
+    width: 112px;
+    height: 112px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(
+        circle at 35% 25%,
+        #33343b,
+        #101116 70%
+    );
+    border: 2px solid rgba(255,159,50,0.65);
+    box-shadow:
+        0 0 28px rgba(255,130,30,0.20),
+        inset 0 0 20px rgba(255,130,30,0.08);
+}
+
+.emblema svg {
+    width: 55px;
+    height: 55px;
+    stroke: #ffad4b;
+    fill: none;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+h1 {
+    margin: 0;
+    font-size: 29px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #ffad4b;
+    text-shadow: 0 0 20px rgba(255,130,30,0.25);
+}
+
+.subtitulo {
+    margin-top: 10px;
+    color: #b8bac2;
+    font-size: 11px;
+    letter-spacing: 3px;
+}
+
+.linea {
+    height: 1px;
+    margin: 26px 0;
+    background: linear-gradient(
+        to right,
+        transparent,
+        rgba(255,165,65,0.55),
+        transparent
+    );
+}
+
+/* ECUALIZADOR ANIMADO */
+
+.ecualizador {
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.barra {
+    width: 5px;
+    height: 10px;
+    border-radius: 5px;
+    background: linear-gradient(
+        to top,
+        #ff5a20,
+        #ffbe60
+    );
+    box-shadow: 0 0 8px rgba(255,110,30,0.3);
+}
+
+.player.is-playing .barra {
+    animation: onda 0.8s ease-in-out infinite alternate;
+}
+
+.player.is-playing .barra:nth-child(2n) {
+    animation-duration: 0.55s;
+}
+
+.player.is-playing .barra:nth-child(3n) {
+    animation-duration: 1.1s;
+}
+
+.player.is-playing .barra:nth-child(4n) {
+    animation-duration: 0.7s;
+}
+
+.player.is-playing .barra:nth-child(5n) {
+    animation-duration: 1.3s;
+}
+
+@keyframes onda {
+    from { height: 8px; }
+    to { height: 55px; }
+}
+
+.estado {
+    color: #b9bac0;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    margin-top: 12px;
+    min-height: 18px;
+}
+
+/* BOTÓN PRINCIPAL */
+
+.controles {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+}
+
+.play {
+    width: 82px;
+    height: 82px;
+    border-radius: 50%;
+    border: 3px solid rgba(255,255,255,0.2);
+    background: linear-gradient(
+        145deg,
+        #ffc16b,
+        #f47725,
+        #d94b16
+    );
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+    box-shadow:
+        0 10px 30px rgba(255,100,20,0.35),
+        0 0 20px rgba(255,120,30,0.15);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.play:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 35px rgba(255,130,30,0.55);
+}
+
+.play:disabled {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+.play:focus-visible {
+    outline: 3px solid white;
+    outline-offset: 5px;
+}
+
+.accion {
+    margin-top: 12px;
+    color: #d7d7d7;
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+/* VOLUMEN */
+
+.volumen {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 32px;
+    padding: 16px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.035);
+    border: 1px solid rgba(255,255,255,0.06);
+}
+
+.volumen-icono {
+    color: #ffad4b;
+    font-size: 19px;
+}
+
+.volumen input {
+    flex: 1;
+    min-width: 0;
+    cursor: pointer;
+    accent-color: #ff9a40;
+}
+
+.volumen-valor {
+    font-size: 11px;
+    color: #bfc0c5;
+    min-width: 32px;
+    text-align: right;
+}
+
+.pie {
+    margin-top: 26px;
+    color: #85868c;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+}
+
+.pie strong {
+    color: #ffad4b;
+}
+
+@media (max-width: 480px) {
+    .player {
+        padding: 26px 22px;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+
+    .emblema {
+        width: 95px;
+        height: 95px;
+    }
+
+    .linea {
+        margin: 18px 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .barra,
+    .punto {
+        animation: none !important;
+    }
+}
+</style>
 </head>
 
 <body>
 
-    <!-- FONDOS DE FOTOGRAFÍAS -->
-    <div id="fondo1" class="fondo"></div>
-    <div id="fondo2" class="fondo"></div>
+<!-- FONDOS -->
+<div id="fondo1" class="fondo"></div>
+<div id="fondo2" class="fondo"></div>
+<div class="overlay"></div>
 
-    <!-- OSCURECIMIENTO -->
-    <div class="overlay"></div>
+<!-- REPRODUCTOR PREMIUM -->
 
-    <!-- REPRODUCTOR -->
-    <div class="player-box">
+<main class="player" id="player">
 
-        <h1>RADIO OXÍGENO</h1>
+    <div class="superior">
+        <span class="marca">RADIO DIGITAL</span>
 
+        <span class="en-vivo">
+            <span class="punto"></span>
+            EN VIVO
+        </span>
+    </div>
+
+    <div class="emblema">
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+            <path d="M25 22 L39 22 L39 42 L25 42 Z"/>
+            <path d="M25 27 L17 21 L17 43 L25 37"/>
+            <path d="M39 27 L47 21 L47 43 L39 37"/>
+            <path d="M32 14 L32 50"/>
+            <path d="M12 15 Q2 32 12 49"/>
+            <path d="M52 15 Q62 32 52 49"/>
+        </svg>
+    </div>
+
+    <h1>RADIO OXÍGENO</h1>
+
+    <div class="subtitulo">
+        LA MÚSICA QUE TE ACOMPAÑA
+    </div>
+
+    <div class="linea"></div>
+
+    <!-- ECUALIZADOR VISUAL -->
+    <div class="ecualizador" aria-hidden="true">
+        <span class="barra"></span>
+        <span class="barra"></span>
+        <span class="barra"></span>
+        <span class="barra"></span>
+        <span class="barra"></span>
+        <span class="barra"></span>
+        <span class="barra"></span>
+        <span class="barra"></span>
+        <span class="barra"></span>
+        <span class="barra"></span>
+        <span class="barra"></span>
+        <span class="barra"></span>
+        <span class="barra"></span>
+        <span class="barra"></span>
+        <span class="barra"></span>
+        <span class="barra"></span>
+        <span class="barra"></span>
+    </div>
+
+    <div class="estado" id="estado" role="status">
+        LISTO PARA ESCUCHAR
+    </div>
+
+    <!-- BOTÓN -->
+    <div class="controles">
         <button
-            id="btnReproducir"
-            class="player-btn"
+            class="play"
+            id="btnPlay"
             type="button"
+            aria-label="Escuchar Radio Oxígeno"
         >
-            ▶ ESCUCHAR
+            ▶
         </button>
+    </div>
 
-        <div id="statusText" class="status-text">
-            RADIO OXÍGENO - EN VIVO
-        </div>
+    <div class="accion" id="accion">
+        PULSA PARA ESCUCHAR
+    </div>
 
-        <audio
-            id="audioStream"
-            preload="none"
-            playsinline
+    <!-- VOLUMEN -->
+    <div class="volumen">
+
+        <span class="volumen-icono" aria-hidden="true">
+            ◖))
+        </span>
+
+        <input
+            type="range"
+            id="volumen"
+            min="0"
+            max="100"
+            value="80"
+            aria-label="Volumen de la radio"
         >
-            <source
-                src="https://stream13.hcnetwork.net/8002/stream"
-                type="audio/mpeg"
-            >
-        </audio>
+
+        <span class="volumen-valor" id="valorVolumen">
+            80%
+        </span>
 
     </div>
 
-    <script>
+    <div class="pie">
+        TRANSMISIÓN ONLINE · <strong>CHILE</strong>
+    </div>
 
-        // ==================================
-        // REPRODUCTOR RADIO OXÍGENO
-        // ==================================
+    <!-- SEÑAL SONICPANEL -->
+    <audio id="radio" preload="none" playsinline>
+        <source
+            src="https://stream13.hcnetwork.net/8002/stream"
+            type="audio/mpeg"
+        >
+    </audio>
 
-        const audio = document.getElementById("audioStream");
-        const btn = document.getElementById("btnReproducir");
-        const statusText = document.getElementById("statusText");
+</main>
 
-        async function toggleRadio() {
+<script>
 
-            if (audio.paused) {
+// =======================================
+// REPRODUCTOR SONICPANEL
+// =======================================
 
-                btn.disabled = true;
-                btn.innerText = "CONECTANDO...";
-                statusText.innerText = "CONECTANDO CON RADIO OXÍGENO...";
-                statusText.style.color = "#ffb74d";
+const radio = document.getElementById("radio");
+const boton = document.getElementById("btnPlay");
+const estado = document.getElementById("estado");
+const accion = document.getElementById("accion");
+const player = document.getElementById("player");
+const volumen = document.getElementById("volumen");
+const valorVolumen = document.getElementById("valorVolumen");
 
-                try {
+radio.volume = 0.8;
 
-                    await audio.play();
+function actualizarReproductor() {
 
-                } catch (error) {
+    if (!radio.paused && !radio.ended) {
 
-                    btn.innerText = "▶ ESCUCHAR";
-                    statusText.innerText =
-                        "NO SE PUDO CONECTAR. INTENTA NUEVAMENTE.";
-                    statusText.style.color = "#ff5252";
+        boton.textContent = "Ⅱ";
+        boton.setAttribute("aria-label", "Pausar radio");
 
-                    console.error("Error de reproducción:", error);
+        estado.textContent = "SONANDO EN VIVO";
+        estado.style.color = "#ffad4b";
 
-                } finally {
+        accion.textContent = "PAUSAR TRANSMISIÓN";
+        player.classList.add("is-playing");
 
-                    btn.disabled = false;
+    } else {
 
-                }
+        boton.textContent = "▶";
+        boton.setAttribute("aria-label", "Escuchar Radio Oxígeno");
 
-            } else {
+        estado.textContent = "TRANSMISIÓN EN PAUSA";
+        estado.style.color = "#b9bac0";
 
-                audio.pause();
+        accion.textContent = "PULSA PARA ESCUCHAR";
+        player.classList.remove("is-playing");
 
-            }
-        }
+    }
+}
 
-        btn.addEventListener("click", toggleRadio);
+async function reproducirRadio() {
 
-        audio.addEventListener("playing", function() {
+    if (!radio.paused) {
+        radio.pause();
+        return;
+    }
 
-            btn.innerText = "⏸ PAUSAR";
-            statusText.innerText = "SONANDO EN VIVO";
-            statusText.style.color = "#4caf50";
+    boton.disabled = true;
+    estado.textContent = "CONECTANDO CON RADIO OXÍGENO...";
+    estado.style.color = "#ffad4b";
 
-        });
+    try {
 
-        audio.addEventListener("pause", function() {
+        await radio.play();
 
-            btn.innerText = "▶ ESCUCHAR";
-            statusText.innerText = "EN PAUSA";
-            statusText.style.color = "#aaa";
+    } catch (error) {
 
-        });
+        estado.textContent = "NO SE PUDO CONECTAR";
+        estado.style.color = "#ff6666";
 
-        audio.addEventListener("waiting", function() {
+        accion.textContent = "INTENTA NUEVAMENTE";
+        player.classList.remove("is-playing");
 
-            statusText.innerText = "CARGANDO TRANSMISIÓN...";
-            statusText.style.color = "#ffb74d";
+        console.error("Error de transmisión:", error);
 
-        });
+    } finally {
 
-        audio.addEventListener("error", function() {
+        boton.disabled = false;
 
-            btn.innerText = "▶ ESCUCHAR";
-            statusText.innerText = "ERROR DE CONEXIÓN CON LA RADIO";
-            statusText.style.color = "#ff5252";
+    }
+}
 
-        });
+boton.addEventListener("click", reproducirRadio);
+
+radio.addEventListener("playing", actualizarReproductor);
+radio.addEventListener("pause", actualizarReproductor);
+
+radio.addEventListener("waiting", function() {
+    estado.textContent = "CARGANDO TRANSMISIÓN...";
+    estado.style.color = "#ffad4b";
+    player.classList.remove("is-playing");
+});
+
+radio.addEventListener("error", function() {
+    estado.textContent = "ERROR DE CONEXIÓN";
+    estado.style.color = "#ff6666";
+    accion.textContent = "REVISA LA TRANSMISIÓN";
+    player.classList.remove("is-playing");
+});
+
+// CONTROL DE VOLUMEN
+
+volumen.addEventListener("input", function() {
+
+    radio.volume = Number(volumen.value) / 100;
+
+    valorVolumen.textContent = volumen.value + "%";
+
+});
 
 
-        // ==================================
-        // ROTACIÓN DE LAS CUATRO FOTOGRAFÍAS
-        // ==================================
+// =======================================
+// FOTOGRAFÍAS CADA 15 MINUTOS
+// =======================================
 
-        const imagenes = [
-            "foto 1.jpg",
-            "foto 2.jpg",
-            "foto 3.jpg",
-            "foto 4.jpg"
-        ];
+const imagenes = [
+    "foto 1.jpg",
+    "foto 2.jpg",
+    "foto 3.jpg",
+    "foto 4.jpg"
+];
 
-        let indice = 0;
-        let fondoVisible = 1;
+const fondo1 = document.getElementById("fondo1");
+const fondo2 = document.getElementById("fondo2");
 
-        const fondo1 = document.getElementById("fondo1");
-        const fondo2 = document.getElementById("fondo2");
+let indiceFoto = 0;
+let fondoActivo = 1;
 
-        // Cargar primera fotografía
-        fondo1.style.backgroundImage =
-            `url("${imagenes[0]}")`;
+// Primera fotografía
+fondo1.style.backgroundImage =
+    `url("${imagenes[0]}")`;
 
-        // Preparar fotografías
-        imagenes.forEach(function(foto) {
+// Precargar fotografías
+imagenes.forEach(function(archivo) {
+    const imagen = new Image();
+    imagen.src = archivo;
+});
 
-            const img = new Image();
-            img.src = foto;
+function cambiarFotografia() {
 
-        });
+    indiceFoto = (indiceFoto + 1) % imagenes.length;
 
-        // Cambiar fotografía suavemente
-        function cambiarFotografia() {
+    const siguiente =
+        fondoActivo === 1 ? fondo2 : fondo1;
 
-            indice = (indice + 1) % imagenes.length;
+    const anterior =
+        fondoActivo === 1 ? fondo1 : fondo2;
 
-            const nuevoFondo =
-                fondoVisible === 1 ? fondo2 : fondo1;
+    siguiente.style.backgroundImage =
+        `url("${imagenes[indiceFoto]}")`;
 
-            const fondoAnterior =
-                fondoVisible === 1 ? fondo1 : fondo2;
+    siguiente.style.opacity = "1";
+    anterior.style.opacity = "0";
 
-            nuevoFondo.style.backgroundImage =
-                `url("${imagenes[indice]}")`;
+    fondoActivo = fondoActivo === 1 ? 2 : 1;
+}
 
-            nuevoFondo.style.opacity = "1";
-            fondoAnterior.style.opacity = "0";
+// Cambiar cada 15 minutos
+setInterval(cambiarFotografia, 15 * 60 * 1000);
 
-            fondoVisible = fondoVisible === 1 ? 2 : 1;
-
-        }
-
-        // Renovar fotografías cada 15 minutos
-        setInterval(
-            cambiarFotografia,
-            15 * 60 * 1000
-        );
-
-    </script>
+</script>
 
 </body>
 </html>
