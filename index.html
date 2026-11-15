@@ -5,10 +5,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#08090d">
-<title>Radio Oxígeno | En Vivo</title>
+<title>Radio Oxígeno - La Mezcla Perfecta</title>
 
 <style>
-* { box-sizing: border-box; }
+* {
+    box-sizing: border-box;
+}
 
 body {
     margin: 0;
@@ -20,7 +22,9 @@ body {
     color: white;
 }
 
-/* FOTOGRAFÍAS */
+/* =================================
+   FOTOGRAFIAS
+================================= */
 
 .fondo {
     position: fixed;
@@ -42,7 +46,9 @@ body {
     z-index: 1;
 }
 
-/* RELOJ DIGITAL */
+/* =================================
+   RELOJ DIGITAL SIETE SEGMENTOS
+================================= */
 
 .reloj {
     position: fixed;
@@ -52,8 +58,6 @@ body {
     display: flex;
     align-items: center;
     gap: 5px;
-    padding: 0;
-    background: transparent;
 }
 
 .digito {
@@ -66,21 +70,24 @@ body {
     position: absolute;
     background: #382719;
     opacity: .55;
-    transition: background .2s, opacity .2s;
 }
 
 .seg.encendido {
     background: #ff9b35;
     opacity: 1;
-    filter: drop-shadow(0 0 4px #ff791b)
-            drop-shadow(0 0 9px rgba(255,140,35,.65));
+    filter:
+        drop-shadow(0 0 4px #ff791b)
+        drop-shadow(0 0 9px rgba(255,140,35,.65));
 }
 
 .seg.a, .seg.g, .seg.d {
     width: 25px;
     height: 6px;
     left: 6px;
-    clip-path: polygon(12% 0,88% 0,100% 50%,88% 100%,12% 100%,0 50%);
+    clip-path: polygon(
+        12% 0,88% 0,100% 50%,
+        88% 100%,12% 100%,0 50%
+    );
 }
 
 .seg.a { top: 0; }
@@ -90,7 +97,10 @@ body {
 .seg.b, .seg.c, .seg.e, .seg.f {
     width: 6px;
     height: 25px;
-    clip-path: polygon(50% 0,100% 12%,100% 88%,50% 100%,0 88%,0 12%);
+    clip-path: polygon(
+        50% 0,100% 12%,100% 88%,
+        50% 100%,0 88%,0 12%
+    );
 }
 
 .seg.f { top: 4px; left: 1px; }
@@ -135,7 +145,9 @@ body {
     white-space: nowrap;
 }
 
-/* REPRODUCTOR HORIZONTAL */
+/* =================================
+   REPRODUCTOR DE ESCRITORIO
+================================= */
 
 .player {
     position: fixed;
@@ -146,23 +158,25 @@ body {
     width: 760px;
     min-height: 220px;
     padding: 25px 30px;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 24px;
+
     background: linear-gradient(
         120deg,
         rgba(28,30,37,.97),
         rgba(9,10,15,.97)
     );
+
     border: 1px solid rgba(255,169,69,.38);
     border-radius: 22px;
+
     box-shadow:
         0 20px 60px rgba(0,0,0,.8),
         0 0 30px rgba(255,115,20,.10);
 }
-
-/* IDENTIDAD */
 
 .identidad {
     flex: 1.1;
@@ -240,7 +254,9 @@ h1 {
     width: 5px;
     height: 9px;
     border-radius: 5px;
-    background: linear-gradient(to top,#ff5a20,#ffbe60);
+    background: linear-gradient(
+        to top,#ff5a20,#ffbe60
+    );
     box-shadow: 0 0 8px rgba(255,110,30,.4);
 }
 
@@ -284,7 +300,9 @@ h1 {
     height: 66px;
     border-radius: 50%;
     border: 2px solid rgba(255,255,255,.2);
-    background: linear-gradient(145deg,#ffc16b,#f47725,#d94b16);
+    background: linear-gradient(
+        145deg,#ffc16b,#f47725,#d94b16
+    );
     color: white;
     font-size: 25px;
     cursor: pointer;
@@ -292,7 +310,9 @@ h1 {
     transition: transform .2s;
 }
 
-.play:hover { transform: scale(1.08); }
+.play:hover {
+    transform: scale(1.08);
+}
 
 .play:disabled {
     opacity: .7;
@@ -338,13 +358,15 @@ h1 {
     letter-spacing: 1px;
 }
 
-.pie strong { color: #ffad4b; }
+.pie strong {
+    color: #ffad4b;
+}
 
-/* ADAPTACIÓN */
+/* =================================
+   TABLETS Y PANTALLAS MEDIANAS
+================================= */
 
 @media (max-width: 850px) {
-    body { overflow: auto; }
-
     .player {
         width: calc(100% - 30px);
         right: 15px;
@@ -358,7 +380,13 @@ h1 {
     .subtitulo { font-size: 8px; }
 }
 
-@media (max-width: 560px) {
+/* =================================
+   TELEFONO VERTICAL
+================================= */
+
+@media screen and (max-width: 560px)
+and (orientation: portrait) {
+
     .reloj {
         top: 18px;
         left: 18px;
@@ -381,17 +409,27 @@ h1 {
         transform: none;
         width: auto;
         min-height: 0;
+
         flex-direction: column;
         gap: 18px;
+
         padding: 22px 18px 30px;
     }
 
-    .identidad { text-align: center; }
-    .zona-musica { width: 100%; }
+    .identidad {
+        text-align: center;
+        min-width: 0;
+    }
+
+    .zona-musica {
+        width: 100%;
+        min-width: 0;
+    }
 
     .controles {
         width: 100%;
         max-width: 220px;
+        min-width: 0;
     }
 
     .pie {
@@ -402,44 +440,214 @@ h1 {
     }
 }
 
+/* =================================
+   TELEFONO HORIZONTAL
+   RELOJ Y FECHA ARRIBA
+   REPRODUCTOR ABAJO
+================================= */
+
+@media screen and (orientation: landscape)
+and (max-height: 600px) {
+
+    body {
+        overflow: hidden;
+    }
+
+    .reloj {
+        top: 14px;
+        left: 18px;
+        transform: scale(.72);
+        transform-origin: top left;
+    }
+
+    .etiqueta-reloj {
+        top: 64px;
+        left: 19px;
+        font-size: 8px;
+        letter-spacing: .7px;
+    }
+
+    .player {
+        top: auto;
+        bottom: 10px;
+        left: 12px;
+        right: 12px;
+        transform: none;
+
+        width: auto;
+        min-height: 0;
+        height: 155px;
+
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        padding: 13px 18px 23px;
+        gap: 12px;
+    }
+
+    .identidad {
+        flex: 1.1;
+        min-width: 0;
+    }
+
+    .marca {
+        font-size: 8px;
+        margin-bottom: 8px;
+    }
+
+    h1 {
+        font-size: clamp(15px, 2.5vw, 21px);
+        letter-spacing: .5px;
+    }
+
+    .subtitulo {
+        font-size: 7px;
+        margin-top: 6px;
+    }
+
+    .en-vivo {
+        margin-top: 9px;
+        padding: 5px 9px;
+        font-size: 8px;
+    }
+
+    .zona-musica {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .ecualizador {
+        height: 43px;
+        gap: 4px;
+    }
+
+    .barra {
+        width: 4px;
+    }
+
+    .player.is-playing .barra {
+        animation-duration: .8s;
+    }
+
+    .estado {
+        font-size: 8px;
+        margin-top: 6px;
+    }
+
+    .controles {
+        flex: 1;
+        min-width: 115px;
+    }
+
+    .play {
+        width: 49px;
+        height: 49px;
+        font-size: 20px;
+    }
+
+    .accion {
+        font-size: 7px;
+        margin-top: 5px;
+    }
+
+    .volumen {
+        margin-top: 9px;
+        gap: 5px;
+    }
+
+    .volumen-valor {
+        font-size: 8px;
+        min-width: 23px;
+    }
+
+    .pie {
+        bottom: 5px;
+        right: 15px;
+        font-size: 7px;
+    }
+}
+
+/* TELEFONOS HORIZONTALES MUY BAJOS */
+
+@media screen and (orientation: landscape)
+and (max-height: 380px) {
+
+    .player {
+        height: 130px;
+        padding: 9px 14px 20px;
+        bottom: 7px;
+    }
+
+    .reloj {
+        transform: scale(.62);
+        top: 9px;
+    }
+
+    .etiqueta-reloj {
+        top: 51px;
+        font-size: 7px;
+    }
+
+    .play {
+        width: 43px;
+        height: 43px;
+    }
+
+    .ecualizador {
+        height: 35px;
+    }
+}
+
+/* ACCESIBILIDAD */
+
 @media (prefers-reduced-motion: reduce) {
     .barra, .punto, .dos-puntos {
         animation: none !important;
     }
 }
+
 </style>
 </head>
 
 <body>
 
-<!-- FOTOGRAFÍAS -->
+<!-- FONDOS DE FOTOGRAFIAS -->
+
 <div id="fondo1" class="fondo"></div>
 <div id="fondo2" class="fondo"></div>
 <div class="overlay"></div>
 
 <!-- RELOJ -->
-<div class="reloj" id="reloj" aria-label="Hora de Chile"></div>
 
-<!-- FECHA DEBAJO DEL RELOJ -->
+<div class="reloj" id="reloj"
+     aria-label="Hora de Chile"></div>
+
+<!-- FECHA -->
+
 <div class="etiqueta-reloj" id="fecha">
     CARGANDO FECHA...
 </div>
 
 <!-- REPRODUCTOR -->
+
 <main class="player" id="player">
 
     <section class="identidad">
+
         <div class="marca">RADIO DIGITAL</div>
+
         <h1>RADIO OXÍGENO</h1>
 
         <div class="subtitulo">
-            LA MÚSICA QUE TE ACOMPAÑA
+            LA MEZCLA PERFECTA
         </div>
 
         <div class="en-vivo">
             <span class="punto"></span>
             EN VIVO
         </div>
+
     </section>
 
     <section class="zona-musica">
@@ -470,8 +678,11 @@ h1 {
 
     <section class="controles">
 
-        <button class="play" id="btnPlay" type="button"
-                aria-label="Escuchar Radio Oxígeno">
+        <button
+            class="play"
+            id="btnPlay"
+            type="button"
+            aria-label="Escuchar Radio Oxígeno">
             ▶
         </button>
 
@@ -480,15 +691,21 @@ h1 {
         </div>
 
         <div class="volumen">
+
             <span aria-hidden="true">◖))</span>
 
-            <input type="range" id="volumen"
-                   min="0" max="100" value="80"
-                   aria-label="Volumen">
+            <input
+                type="range"
+                id="volumen"
+                min="0"
+                max="100"
+                value="80"
+                aria-label="Volumen">
 
             <span class="volumen-valor" id="valorVolumen">
                 80%
             </span>
+
         </div>
 
     </section>
@@ -496,6 +713,8 @@ h1 {
     <div class="pie">
         TRANSMISIÓN ONLINE · <strong>CHILE</strong>
     </div>
+
+    <!-- CONEXION SONICPANEL -->
 
     <audio id="radio" preload="none" playsinline>
         <source
@@ -508,7 +727,7 @@ h1 {
 <script>
 
 // =====================================
-// RELOJ DIGITAL DE SIETE SEGMENTOS
+// RELOJ DIGITAL
 // =====================================
 
 const reloj = document.getElementById("reloj");
@@ -579,6 +798,7 @@ function dibujarReloj() {
 
     reloj.appendChild(crearDigito(minuto[0]));
     reloj.appendChild(crearDigito(minuto[1]));
+
 }
 
 dibujarReloj();
@@ -586,7 +806,7 @@ setInterval(dibujarReloj, 1000);
 
 
 // =====================================
-// FECHA AUTOMÁTICA DE CHILE
+// FECHA DE CHILE
 // =====================================
 
 function dibujarFecha() {
@@ -629,6 +849,7 @@ async function reproducirRadio() {
     estado.style.color = "#ffad4b";
 
     try {
+
         await radio.play();
 
     } catch (error) {
@@ -640,7 +861,9 @@ async function reproducirRadio() {
         console.error("Error de radio:", error);
 
     } finally {
+
         boton.disabled = false;
+
     }
 }
 
@@ -657,6 +880,7 @@ function actualizarReproductor() {
         estado.style.color = "#ffad4b";
 
         accion.textContent = "PAUSAR TRANSMISIÓN";
+
         player.classList.add("is-playing");
 
     } else {
@@ -668,7 +892,9 @@ function actualizarReproductor() {
         estado.style.color = "#b9bac0";
 
         accion.textContent = "PULSA PARA ESCUCHAR";
+
         player.classList.remove("is-playing");
+
     }
 }
 
@@ -676,19 +902,27 @@ radio.addEventListener("playing", actualizarReproductor);
 radio.addEventListener("pause", actualizarReproductor);
 
 radio.addEventListener("waiting", function() {
+
     estado.textContent = "CARGANDO TRANSMISIÓN...";
     estado.style.color = "#ffad4b";
-    player.classList.remove("is-playing");
+
 });
 
 radio.addEventListener("error", function() {
+
     estado.textContent = "ERROR DE CONEXIÓN";
     estado.style.color = "#ff6666";
+
     accion.textContent = "REVISA LA TRANSMISIÓN";
+
     player.classList.remove("is-playing");
+
 });
 
+
+// =====================================
 // CONTROL DE VOLUMEN
+// =====================================
 
 const volumen = document.getElementById("volumen");
 const valorVolumen = document.getElementById("valorVolumen");
@@ -696,13 +930,16 @@ const valorVolumen = document.getElementById("valorVolumen");
 radio.volume = 0.8;
 
 volumen.addEventListener("input", function() {
+
     radio.volume = Number(volumen.value) / 100;
+
     valorVolumen.textContent = volumen.value + "%";
+
 });
 
 
 // =====================================
-// ROTACIÓN DE LAS CUATRO FOTOGRAFÍAS
+// ROTACION DE FOTOGRAFIAS
 // =====================================
 
 const imagenes = [
@@ -722,17 +959,23 @@ fondo1.style.backgroundImage =
     `url("${imagenes[0]}")`;
 
 // Precargar fotografías
+
 imagenes.forEach(function(archivo) {
+
     const imagen = new Image();
     imagen.src = archivo;
+
 });
 
 function cambiarFotografia() {
 
     indiceFoto = (indiceFoto + 1) % imagenes.length;
 
-    const siguiente = fondoActivo === 1 ? fondo2 : fondo1;
-    const anterior = fondoActivo === 1 ? fondo1 : fondo2;
+    const siguiente =
+        fondoActivo === 1 ? fondo2 : fondo1;
+
+    const anterior =
+        fondoActivo === 1 ? fondo1 : fondo2;
 
     siguiente.style.backgroundImage =
         `url("${imagenes[indiceFoto]}")`;
@@ -741,9 +984,15 @@ function cambiarFotografia() {
     anterior.style.opacity = "0";
 
     fondoActivo = fondoActivo === 1 ? 2 : 1;
+
 }
 
-setInterval(cambiarFotografia, 15 * 60 * 1000);
+// Cada 15 minutos
+
+setInterval(
+    cambiarFotografia,
+    15 * 60 * 1000
+);
 
 </script>
 
