@@ -42,7 +42,7 @@ body {
     z-index: 1;
 }
 
-/* RELOJ DIGITAL SUPERIOR IZQUIERDO */
+/* RELOJ DIGITAL */
 
 .reloj {
     position: fixed;
@@ -76,8 +76,6 @@ body {
             drop-shadow(0 0 9px rgba(255,140,35,.65));
 }
 
-/* Segmentos horizontales */
-
 .seg.a, .seg.g, .seg.d {
     width: 25px;
     height: 6px;
@@ -88,8 +86,6 @@ body {
 .seg.a { top: 0; }
 .seg.g { top: 29px; }
 .seg.d { bottom: 0; }
-
-/* Segmentos verticales */
 
 .seg.b, .seg.c, .seg.e, .seg.f {
     width: 6px;
@@ -125,6 +121,8 @@ body {
     50% { opacity: .15; }
 }
 
+/* FECHA DEBAJO DEL RELOJ */
+
 .etiqueta-reloj {
     position: fixed;
     top: 101px;
@@ -133,7 +131,8 @@ body {
     color: #ffad4b;
     font-size: 9px;
     font-weight: bold;
-    letter-spacing: 2px;
+    letter-spacing: 1.2px;
+    white-space: nowrap;
 }
 
 /* REPRODUCTOR HORIZONTAL */
@@ -144,26 +143,20 @@ body {
     right: 35px;
     top: 50%;
     transform: translateY(-50%);
-
     width: 760px;
     min-height: 220px;
-
     padding: 25px 30px;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 24px;
-
     background: linear-gradient(
         120deg,
         rgba(28,30,37,.97),
         rgba(9,10,15,.97)
     );
-
     border: 1px solid rgba(255,169,69,.38);
     border-radius: 22px;
-
     box-shadow:
         0 20px 60px rgba(0,0,0,.8),
         0 0 30px rgba(255,115,20,.10);
@@ -347,12 +340,10 @@ h1 {
 
 .pie strong { color: #ffad4b; }
 
-/* PANTALLAS PEQUEÑAS */
+/* ADAPTACIÓN */
 
 @media (max-width: 850px) {
-    body {
-        overflow: auto;
-    }
+    body { overflow: auto; }
 
     .player {
         width: calc(100% - 30px);
@@ -378,6 +369,8 @@ h1 {
     .etiqueta-reloj {
         top: 72px;
         left: 20px;
+        font-size: 8px;
+        letter-spacing: .8px;
     }
 
     .player {
@@ -393,10 +386,7 @@ h1 {
         padding: 22px 18px 30px;
     }
 
-    .identidad {
-        text-align: center;
-    }
-
+    .identidad { text-align: center; }
     .zona-musica { width: 100%; }
 
     .controles {
@@ -427,12 +417,12 @@ h1 {
 <div id="fondo2" class="fondo"></div>
 <div class="overlay"></div>
 
-<!-- RELOJ DIGITAL -->
-<div class="reloj" id="reloj" aria-label="Hora de Chile">
-</div>
+<!-- RELOJ -->
+<div class="reloj" id="reloj" aria-label="Hora de Chile"></div>
 
-<div class="etiqueta-reloj">
-    HORA CHILE
+<!-- FECHA DEBAJO DEL RELOJ -->
+<div class="etiqueta-reloj" id="fecha">
+    CARGANDO FECHA...
 </div>
 
 <!-- REPRODUCTOR -->
@@ -440,7 +430,6 @@ h1 {
 
     <section class="identidad">
         <div class="marca">RADIO DIGITAL</div>
-
         <h1>RADIO OXÍGENO</h1>
 
         <div class="subtitulo">
@@ -481,12 +470,8 @@ h1 {
 
     <section class="controles">
 
-        <button
-            class="play"
-            id="btnPlay"
-            type="button"
-            aria-label="Escuchar Radio Oxígeno"
-        >
+        <button class="play" id="btnPlay" type="button"
+                aria-label="Escuchar Radio Oxígeno">
             ▶
         </button>
 
@@ -497,14 +482,9 @@ h1 {
         <div class="volumen">
             <span aria-hidden="true">◖))</span>
 
-            <input
-                type="range"
-                id="volumen"
-                min="0"
-                max="100"
-                value="80"
-                aria-label="Volumen"
-            >
+            <input type="range" id="volumen"
+                   min="0" max="100" value="80"
+                   aria-label="Volumen">
 
             <span class="volumen-valor" id="valorVolumen">
                 80%
@@ -520,8 +500,7 @@ h1 {
     <audio id="radio" preload="none" playsinline>
         <source
             src="https://stream13.hcnetwork.net/8002/stream"
-            type="audio/mpeg"
-        >
+            type="audio/mpeg">
     </audio>
 
 </main>
@@ -600,12 +579,32 @@ function dibujarReloj() {
 
     reloj.appendChild(crearDigito(minuto[0]));
     reloj.appendChild(crearDigito(minuto[1]));
-
 }
 
-// Actualización cada segundo
 dibujarReloj();
 setInterval(dibujarReloj, 1000);
+
+
+// =====================================
+// FECHA AUTOMÁTICA DE CHILE
+// =====================================
+
+function dibujarFecha() {
+
+    const fecha = new Intl.DateTimeFormat("es-CL", {
+        timeZone: "America/Santiago",
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+    }).format(new Date());
+
+    document.getElementById("fecha").textContent =
+        fecha.toUpperCase();
+}
+
+dibujarFecha();
+setInterval(dibujarFecha, 60000);
 
 
 // =====================================
@@ -630,7 +629,6 @@ async function reproducirRadio() {
     estado.style.color = "#ffad4b";
 
     try {
-
         await radio.play();
 
     } catch (error) {
@@ -642,9 +640,7 @@ async function reproducirRadio() {
         console.error("Error de radio:", error);
 
     } finally {
-
         boton.disabled = false;
-
     }
 }
 
@@ -673,7 +669,6 @@ function actualizarReproductor() {
 
         accion.textContent = "PULSA PARA ESCUCHAR";
         player.classList.remove("is-playing");
-
     }
 }
 
@@ -701,10 +696,8 @@ const valorVolumen = document.getElementById("valorVolumen");
 radio.volume = 0.8;
 
 volumen.addEventListener("input", function() {
-
     radio.volume = Number(volumen.value) / 100;
     valorVolumen.textContent = volumen.value + "%";
-
 });
 
 
@@ -748,10 +741,8 @@ function cambiarFotografia() {
     anterior.style.opacity = "0";
 
     fondoActivo = fondoActivo === 1 ? 2 : 1;
-
 }
 
-// Cada 15 minutos
 setInterval(cambiarFotografia, 15 * 60 * 1000);
 
 </script>
