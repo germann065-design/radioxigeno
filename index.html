@@ -45,7 +45,7 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.7);
             text-align: center;
             border: 1px solid rgba(255,255,255,0.1);
-            width: 300px;
+            width: 320px;
         }
         h1 {
             color: #ff5722;
@@ -53,20 +53,10 @@
             font-size: 22px;
             letter-spacing: 2px;
         }
-        .player-btn {
-            background-color: #ff5722;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: background 0.2s;
-            box-align: center;
-        }
-        .player-btn:hover {
-            background-color: #e64a19;
+        audio {
+            width: 100%;
+            margin-top: 10px;
+            outline: none;
         }
     </style>
 </head>
@@ -75,23 +65,13 @@
     <div class="overlay"></div>
     <div class="player-box">
         <h1>RADIO OXÍGENO</h1>
-        <button id="btnReproducir" class="player-btn" onclick="toggleRadio()">▶ ESCUCHAR</button>
-        <audio id="audioStream" src="https://stream12.hnetwork.net:8002/stream" preload="none"></audio>
+        <audio controls preload="none">
+            <source src="https://stream12.hnetwork.net:8002/stream" type="audio/aac">
+            <source src="https://stream12.hnetwork.net:8002/stream" type="audio/mpeg">
+            Tu navegador no soporta el reproductor de audio.
+        </audio>
     </div>
     <script>
-        const audio = document.getElementById('audioStream');
-        const btn = document.getElementById('btnReproducir');
-
-        function toggleRadio() {
-            if (audio.paused) {
-                audio.play();
-                btn.innerText = "⏸ PAUSAR";
-            } else {
-                audio.pause();
-                btn.innerText = "▶ ESCUCHAR";
-            }
-        }
-
         const imagenes = ['foto 1.jpg', 'foto 2.jpg', 'foto 3.jpg', 'foto 4.jpg'];
         let index = 0;
         const capaFondo = document.getElementById('fondo-radio');
