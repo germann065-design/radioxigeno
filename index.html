@@ -33,18 +33,18 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.45);
             z-index: 0;
         }
         .player-box {
             position: relative;
             z-index: 1;
             background: rgba(20, 20, 20, 0.85);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
             text-align: center;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
             width: 320px;
         }
         h1 {
@@ -53,10 +53,27 @@
             font-size: 22px;
             letter-spacing: 2px;
         }
-        audio {
-            width: 100%;
-            margin-top: 10px;
-            outline: none;
+        .player-btn {
+            background-color: #ff5722;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            box-shadow: 0 4px 12px rgba(255,87,34,0.4);
+        }
+        .player-btn:hover {
+            background-color: #e64a19;
+            transform: scale(1.03);
+        }
+        .status-text {
+            color: #aaa;
+            font-size: 12px;
+            margin-top: 15px;
+            letter-spacing: 1px;
         }
     </style>
 </head>
@@ -65,13 +82,29 @@
     <div class="overlay"></div>
     <div class="player-box">
         <h1>RADIO OXÍGENO</h1>
-        <audio controls preload="none">
-            <source src="https://stream12.hnetwork.net:8002/stream" type="audio/aac">
-            <source src="https://stream12.hnetwork.net:8002/stream" type="audio/mpeg">
-            Tu navegador no soporta el reproductor de audio.
-        </audio>
+        <button id="btnReproducir" class="player-btn" onclick="toggleRadio()">▶ ESCUCHAR</button>
+        <div id="statusText" class="status-text">TRANSMITIENDO EN VIVO</div>
+        <audio id="audioStream" src="https://stream13.hnetwork.net:8002/stream" preload="none"></audio>
     </div>
     <script>
+        const audio = document.getElementById('audioStream');
+        const btn = document.getElementById('btnReproducir');
+        const statusText = document.getElementById('statusText');
+
+        function toggleRadio() {
+            if (audio.paused) {
+                audio.play();
+                btn.innerText = "⏸ PAUSAR";
+                statusText.innerText = "SONANDO EN VIVO";
+                statusText.style.color = "#4caf50";
+            } else {
+                audio.pause();
+                btn.innerText = "▶ ESCUCHAR";
+                statusText.innerText = "EN PAUSA";
+                statusText.style.color = "#aaa";
+            }
+        }
+
         const imagenes = ['foto 1.jpg', 'foto 2.jpg', 'foto 3.jpg', 'foto 4.jpg'];
         let index = 0;
         const capaFondo = document.getElementById('fondo-radio');
