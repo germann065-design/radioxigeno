@@ -1,78 +1,89 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Radio Oxígeno - En Vivo</title>
-
-  <!-- Script Oficial de Widgets SonicPanel -->
-  <script id="sonic_js" data-port="8002" src="https://stream13.hcnetwork.net/cp/widgets.js?r=526"></script>
-
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body, html {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background-color: #000;
-      font-family: Arial, sans-serif;
-    }
-
-    .bg-image {
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 1;
-    }
-
-    .player-container {
-      position: absolute;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 2;
-      background: rgba(0, 0, 0, 0.8);
-      padding: 20px 30px;
-      border-radius: 25px;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
-      text-align: center;
-      color: #ffffff;
-      min-width: 320px;
-    }
-
-    .song-title {
-      font-size: 16px;
-      font-weight: bold;
-      margin-bottom: 12px;
-      color: #00e5ff;
-    }
-
-    audio {
-      outline: none;
-      width: 100%;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Radio Oxígeno</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+            overflow: hidden;
+            font-family: sans-serif;
+        }
+        #fondo-radio {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: opacity 2s ease-in-out;
+            opacity: 1;
+            z-index: -1;
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 0;
+        }
+        .player-box {
+            position: relative;
+            z-index: 1;
+            background: rgba(20, 20, 20, 0.85);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        h1 {
+            color: #ff5722;
+            margin-bottom: 15px;
+            font-size: 24px;
+            letter-spacing: 2px;
+        }
+        audio {
+            width: 100%;
+            outline: none;
+        }
+    </style>
 </head>
 <body>
-  <!-- Imagen de fondo -->
-  <img src="Gemini_Generated_Image_e1vv9qe1vv9qe1vv.jpg" alt="Radio Oxígeno" class="bg-image">
+    <div id="fondo-radio"></div>
+    <div class="overlay"></div>
+    <div class="player-box">
+        <h1>RADIO OXÍGENO</h1>
+        <audio controls autoplay>
+            <source src="https://stream12.hnetwork.net:8002/stream" type="audio/mpeg">
+        </audio>
+    </div>
+    <script>
+        const imagenes = ['foto1.jpg', 'foto2.jpg', 'foto3.jpg', 'foto4.jpg'];
+        let index = 0;
+        const capaFondo = document.getElementById('fondo-radio');
 
-  <!-- Contenedor del Reproductor y Metadatos -->
-  <div class="player-container">
-    <div id="sonic_title" class="song-title">Cargando canción...</div>
-    <audio controls autoplay>
-      <source src="https://stream13.hcnetwork.net:8002/stream" type="audio/mpeg">
-      Tu navegador no soporta el reproductor de audio.
-    </audio>
-  </div>
+        function cambiarFondoSuave() {
+            capaFondo.style.opacity = 0;
+            setTimeout(() => {
+                capaFondo.style.backgroundImage = `url('${imagenes[index]}')`;
+                capaFondo.style.opacity = 1;
+                index = (index + 1) % imagenes.length;
+            }, 1000);
+        }
+
+        capaFondo.style.backgroundImage = `url('${imagenes[index]}')`;
+        index = (index + 1) % imagenes.length;
+        setInterval(cambiarFondoSuave, 15 * 60 * 1000);
+    </script>
 </body>
 </html>
