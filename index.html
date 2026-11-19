@@ -52,11 +52,11 @@ body {
 
 .capa-creditos {
     position: fixed;
-    top: 125px;
+    top: 130px;
     left: 34px;
     bottom: 24px;
-    width: 430px;
-    max-width: calc(100vw - 825px);
+    width: 560px;
+    max-width: calc(100vw - 835px);
     background: transparent;
     pointer-events: none;
     z-index: 4;
@@ -83,9 +83,9 @@ body {
     top: 100%;
     width: 100%;
     text-align: left;
-    color: rgba(255, 221, 51, 0.85);
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.92);
-    animation: rodarCreditos 55s linear infinite;
+    color: rgba(255, 221, 51, 0.86);
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95);
+    animation: rodarCreditos 65s linear infinite;
     pointer-events: auto;
     cursor: pointer;
     user-select: none;
@@ -102,12 +102,12 @@ body {
     bottom: 18px;
     left: 34px;
     z-index: 6;
-    padding: 5px 11px;
+    padding: 6px 12px;
     border-radius: 14px;
-    background: rgba(15, 17, 23, 0.82);
+    background: rgba(15, 17, 23, 0.85);
     border: 1px solid rgba(255, 215, 0, 0.45);
     color: #ffd700;
-    font-size: 9px;
+    font-size: 10px;
     font-weight: bold;
     letter-spacing: 1px;
     pointer-events: none;
@@ -122,45 +122,45 @@ body {
 }
 
 .bloque-creditos .credito-titulo {
-    margin: 0 0 5px 0;
-    font-size: 26px;
+    margin: 0 0 6px 0;
+    font-size: 34px;
     font-weight: bold;
     letter-spacing: 1.5px;
-    color: rgba(255, 215, 0, 0.94);
+    color: rgba(255, 215, 0, 0.95);
 }
 
 .bloque-creditos .credito-subtitulo {
-    margin: 0 0 24px 0;
-    font-size: 13px;
+    margin: 0 0 28px 0;
+    font-size: 16px;
     font-weight: bold;
-    letter-spacing: 2px;
-    color: rgba(255, 228, 92, 0.88);
+    letter-spacing: 2.2px;
+    color: rgba(255, 228, 92, 0.9);
 }
 
 .bloque-creditos h3 {
-    margin: 24px 0 9px 0;
-    font-size: 17px;
-    letter-spacing: 0.6px;
-    color: rgba(255, 215, 0, 0.96);
+    margin: 28px 0 11px 0;
+    font-size: 22px;
+    letter-spacing: 0.5px;
+    color: rgba(255, 215, 0, 0.97);
 }
 
 .bloque-creditos p {
-    margin: 0 0 16px 0;
-    font-size: 16.5px;
-    line-height: 1.6;
-    color: rgba(255, 230, 85, 0.82);
+    margin: 0 0 20px 0;
+    font-size: 21px;
+    line-height: 1.58;
+    color: rgba(255, 230, 85, 0.84);
 }
 
 .capa-creditos.pausado .bloque-creditos p {
-    color: rgba(255, 238, 120, 0.96);
+    color: rgba(255, 238, 120, 0.97);
 }
 
 .bloque-creditos .credito-cierre {
-    margin-top: 22px;
-    font-size: 17px;
+    margin-top: 26px;
+    font-size: 22px;
     font-weight: bold;
     letter-spacing: 0.8px;
-    color: rgba(255, 215, 0, 0.96);
+    color: rgba(255, 215, 0, 0.97);
 }
 
 @keyframes rodarCreditos {
@@ -489,16 +489,40 @@ h1 {
 }
 
 /* =================================
-   TABLETS Y PANTALLAS MEDIANAS
+   VENTANAS MEDIANAS Y LAPTOPS
 ================================= */
 
-@media (max-width: 1240px) {
+@media (max-width: 1380px) {
+    .capa-creditos {
+        width: 440px;
+        max-width: calc(100vw - 825px);
+    }
+
+    .bloque-creditos .credito-titulo {
+        font-size: 26px;
+    }
+
+    .bloque-creditos .credito-subtitulo {
+        font-size: 13px;
+    }
+
+    .bloque-creditos h3,
+    .bloque-creditos .credito-cierre {
+        font-size: 17px;
+    }
+
+    .bloque-creditos p {
+        font-size: 16.5px;
+    }
+}
+
+@media (max-width: 1120px) {
     .capa-creditos {
         max-width: calc(100vw - 815px);
     }
 
     .bloque-creditos .credito-titulo {
-        font-size: 22px;
+        font-size: 21px;
     }
 
     .bloque-creditos h3,
@@ -507,7 +531,7 @@ h1 {
     }
 
     .bloque-creditos p {
-        font-size: 14.5px;
+        font-size: 14px;
     }
 }
 
@@ -523,7 +547,7 @@ h1 {
         top: 122px;
         bottom: 210px;
         left: 20px;
-        width: 290px;
+        width: 310px;
         max-width: calc(100vw - 40px);
     }
 
