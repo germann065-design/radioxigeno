@@ -55,8 +55,8 @@ body {
     top: 130px;
     left: 34px;
     bottom: 24px;
-    width: 560px;
-    max-width: calc(100vw - 835px);
+    width: 620px;
+    max-width: calc(100vw - 825px);
     background: transparent;
     pointer-events: none;
     z-index: 4;
@@ -85,7 +85,7 @@ body {
     text-align: left;
     color: rgba(255, 221, 51, 0.86);
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95);
-    animation: rodarCreditos 88s linear infinite;
+    animation: rodarCreditos 98s linear infinite;
     pointer-events: auto;
     cursor: pointer;
     user-select: none;
@@ -123,31 +123,31 @@ body {
 
 .bloque-creditos .credito-titulo {
     margin: 0 0 6px 0;
-    font-size: 34px;
+    font-size: 42px;
     font-weight: bold;
     letter-spacing: 1.5px;
     color: rgba(255, 215, 0, 0.95);
 }
 
 .bloque-creditos .credito-subtitulo {
-    margin: 0 0 28px 0;
-    font-size: 16px;
+    margin: 0 0 30px 0;
+    font-size: 19px;
     font-weight: bold;
     letter-spacing: 2.2px;
     color: rgba(255, 228, 92, 0.9);
 }
 
 .bloque-creditos h3 {
-    margin: 28px 0 11px 0;
-    font-size: 22px;
+    margin: 32px 0 12px 0;
+    font-size: 27px;
     letter-spacing: 0.5px;
     color: rgba(255, 215, 0, 0.97);
 }
 
 .bloque-creditos p {
-    margin: 0 0 20px 0;
-    font-size: 21px;
-    line-height: 1.58;
+    margin: 0 0 22px 0;
+    font-size: 25.5px;
+    line-height: 1.55;
     color: rgba(255, 230, 85, 0.84);
 }
 
@@ -156,8 +156,8 @@ body {
 }
 
 .bloque-creditos .credito-cierre {
-    margin-top: 26px;
-    font-size: 22px;
+    margin-top: 30px;
+    font-size: 27px;
     font-weight: bold;
     letter-spacing: 0.8px;
     color: rgba(255, 215, 0, 0.97);
@@ -492,18 +492,37 @@ h1 {
    VENTANAS MEDIANAS Y LAPTOPS
 ================================= */
 
-@media (max-width: 1380px) {
+@media (max-width: 1440px) {
     .capa-creditos {
-        width: 440px;
+        width: 480px;
         max-width: calc(100vw - 825px);
     }
 
     .bloque-creditos .credito-titulo {
-        font-size: 26px;
+        font-size: 32px;
     }
 
     .bloque-creditos .credito-subtitulo {
-        font-size: 13px;
+        font-size: 15px;
+    }
+
+    .bloque-creditos h3,
+    .bloque-creditos .credito-cierre {
+        font-size: 21px;
+    }
+
+    .bloque-creditos p {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 1180px) {
+    .capa-creditos {
+        max-width: calc(100vw - 815px);
+    }
+
+    .bloque-creditos .credito-titulo {
+        font-size: 24px;
     }
 
     .bloque-creditos h3,
@@ -512,26 +531,7 @@ h1 {
     }
 
     .bloque-creditos p {
-        font-size: 16.5px;
-    }
-}
-
-@media (max-width: 1120px) {
-    .capa-creditos {
-        max-width: calc(100vw - 815px);
-    }
-
-    .bloque-creditos .credito-titulo {
-        font-size: 21px;
-    }
-
-    .bloque-creditos h3,
-    .bloque-creditos .credito-cierre {
-        font-size: 15px;
-    }
-
-    .bloque-creditos p {
-        font-size: 14px;
+        font-size: 16px;
     }
 }
 
@@ -547,7 +547,7 @@ h1 {
         top: 122px;
         bottom: 210px;
         left: 20px;
-        width: 310px;
+        width: 320px;
         max-width: calc(100vw - 40px);
     }
 
@@ -595,13 +595,13 @@ and (orientation: portrait) {
     }
 
     .bloque-creditos .credito-titulo {
-        font-size: 19px;
+        font-size: 20px;
     }
 
     .bloque-creditos p,
     .bloque-creditos h3,
     .bloque-creditos .credito-cierre {
-        font-size: 14px;
+        font-size: 15px;
     }
 
     .player {
