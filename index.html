@@ -173,7 +173,7 @@ body {
 }
 
 /* =================================
-   RELOJ DIGITAL SIETE SEGMENTOS
+   RELOJ DIGITAL SIETE SEGMENTOS (SIN SOMBRA FANTASMA)
 ================================= */
 
 .reloj {
@@ -194,16 +194,14 @@ body {
 
 .seg {
     position: absolute;
-    background: #382719;
-    opacity: .55;
+    background: transparent;
+    opacity: 0;
 }
 
 .seg.encendido {
     background: #ff9b35;
     opacity: 1;
-    filter:
-        drop-shadow(0 0 4px #ff791b)
-        drop-shadow(0 0 9px rgba(255,140,35,.65));
+    filter: none;
 }
 
 .seg.a, .seg.g, .seg.d {
@@ -250,7 +248,7 @@ body {
     height: 6px;
     background: #ff9b35;
     border-radius: 1px;
-    box-shadow: 0 0 8px #ff791b;
+    box-shadow: none;
 }
 
 @keyframes parpadeo {
