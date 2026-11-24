@@ -330,11 +330,17 @@ h1 {
     letter-spacing: 1.5px;
 }
 
+.fila-estado-apoyo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 18px;
+}
+
 .en-vivo {
     display: inline-flex;
     align-items: center;
     gap: 7px;
-    margin-top: 18px;
     padding: 7px 12px;
     border-radius: 20px;
     color: #ffad4b;
@@ -343,6 +349,115 @@ h1 {
     font-weight: bold;
     background: rgba(255,100,30,.12);
     border: 1px solid rgba(255,130,40,.35);
+}
+
+/* BOTON DE APOYO DEDO ARRIBA */
+
+.btn-apoyo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 185, 95, 0.65);
+    background: linear-gradient(145deg, rgba(255, 175, 75, 0.28), rgba(244, 119, 37, 0.22));
+    color: #ffffff;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.55),
+        inset 0 1px 2px rgba(255, 255, 255, 0.28);
+    transition: transform 0.18s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-apoyo:hover {
+    transform: scale(1.09);
+    background: linear-gradient(145deg, rgba(255, 185, 85, 0.42), rgba(244, 119, 37, 0.35));
+    border-color: #ffbe60;
+    box-shadow:
+        0 6px 16px rgba(255, 120, 30, 0.35),
+        inset 0 1px 2px rgba(255, 255, 255, 0.35);
+}
+
+.btn-apoyo:active {
+    transform: scale(0.96);
+}
+
+.btn-apoyo.apoyado {
+    background: linear-gradient(145deg, #ffc16b, #f47725, #d94b16);
+    border-color: #ffd38c;
+    box-shadow:
+        0 6px 18px rgba(255, 115, 25, 0.48),
+        inset 0 1px 2px rgba(255, 255, 255, 0.4);
+}
+
+/* BURBUJA DE OXIGENO DE AGRADECIMIENTO */
+
+.burbuja-oxigeno {
+    position: fixed;
+    z-index: 20;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 158px;
+    height: 158px;
+    padding: 14px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle at 30% 28%,
+        rgba(255, 255, 255, 0.42) 0%,
+        rgba(175, 232, 255, 0.24) 36%,
+        rgba(255, 173, 75, 0.18) 72%,
+        rgba(120, 205, 255, 0.30) 100%
+    );
+    border: 1.5px solid rgba(210, 244, 255, 0.65);
+    box-shadow:
+        inset -8px -10px 20px rgba(255, 169, 69, 0.22),
+        inset 8px 8px 18px rgba(255, 255, 255, 0.42),
+        0 10px 28px rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    animation: flotarBurbujaOxigeno 3.4s ease-out forwards;
+}
+
+.burbuja-oxigeno::before {
+    content: "";
+    position: absolute;
+    top: 18px;
+    left: 26px;
+    width: 26px;
+    height: 14px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.55);
+    transform: rotate(-28deg);
+}
+
+.burbuja-iconos {
+    font-size: 28px;
+    line-height: 1.1;
+    margin-bottom: 5px;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.55));
+}
+
+.burbuja-texto {
+    font-size: 11.5px;
+    font-weight: bold;
+    line-height: 1.25;
+    color: #ffffff;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9);
+}
+
+@keyframes flotarBurbujaOxigeno {
+    0%   { opacity: 0; transform: translate(-50%, 10px) scale(0.45); }
+    14%  { opacity: 1; transform: translate(-50%, -18px) scale(1.03); }
+    24%  { transform: translate(-50%, -32px) scale(1); }
+    75%  { opacity: 1; transform: translate(-50%, -115px) scale(1.02); }
+    100% { opacity: 0; transform: translate(-50%, -165px) scale(0.92); }
 }
 
 .punto {
@@ -621,8 +736,9 @@ and (orientation: portrait) {
         margin-bottom: 8px;
     }
 
-    .en-vivo {
+    .fila-estado-apoyo {
         margin-top: 12px;
+        justify-content: center;
     }
 
     .ecualizador {
@@ -738,10 +854,20 @@ and (max-height: 600px) {
         margin-top: 6px;
     }
 
-    .en-vivo {
+    .fila-estado-apoyo {
         margin-top: 9px;
+        gap: 8px;
+    }
+
+    .en-vivo {
         padding: 5px 9px;
         font-size: 8px;
+    }
+
+    .btn-apoyo {
+        width: 34px;
+        height: 34px;
+        font-size: 16px;
     }
 
     .zona-musica {
@@ -839,7 +965,7 @@ and (max-height: 380px) {
 /* ACCESIBILIDAD */
 
 @media (prefers-reduced-motion: reduce) {
-    .barra, .punto, .dos-puntos, .bloque-creditos {
+    .barra, .punto, .dos-puntos, .bloque-creditos, .burbuja-oxigeno {
         animation: none !important;
     }
 }
@@ -916,9 +1042,20 @@ and (max-height: 380px) {
             LA MEZCLA PERFECTA
         </div>
 
-        <div class="en-vivo">
-            <span class="punto"></span>
-            EN VIVO
+        <div class="fila-estado-apoyo">
+            <div class="en-vivo">
+                <span class="punto"></span>
+                EN VIVO
+            </div>
+
+            <button
+                type="button"
+                class="btn-apoyo"
+                id="btnApoyo"
+                title="Me gusta Radio Oxígeno"
+                aria-label="Apoyar a Radio Oxígeno">
+                👍
+            </button>
         </div>
 
     </section>
@@ -1015,6 +1152,56 @@ function alternarPausaCreditos() {
 
 bloqueCreditos.addEventListener("click", alternarPausaCreditos);
 overlayFondo.addEventListener("click", alternarPausaCreditos);
+
+
+// =====================================
+// APOYO Y BURBUJA DE OXIGENO
+// =====================================
+
+const btnApoyo = document.getElementById("btnApoyo");
+const CLAVE_APOYO = "radio_oxigeno_apoyado";
+const CLAVE_TOTAL_APOYOS = "radio_oxigeno_apoyos_total";
+const CLAVE_ULTIMO_APOYO = "radio_oxigeno_ultimo_apoyo";
+
+if (localStorage.getItem(CLAVE_APOYO) === "1") {
+    btnApoyo.classList.add("apoyado");
+}
+
+function lanzarBurbujaOxigeno() {
+    const rect = btnApoyo.getBoundingClientRect();
+    const burbuja = document.createElement("div");
+    burbuja.className = "burbuja-oxigeno";
+
+    const centroX = Math.min(
+        Math.max(rect.left + rect.width / 2, 95),
+        window.innerWidth - 95
+    );
+    const inicioY = Math.max(rect.top - 140, 20);
+
+    burbuja.style.left = centroX + "px";
+    burbuja.style.top = inicioY + "px";
+
+    burbuja.innerHTML =
+        '<div class="burbuja-iconos">😊👍</div>' +
+        '<div class="burbuja-texto">¡Gracias por<br>tu apoyo!</div>';
+
+    document.body.appendChild(burbuja);
+
+    burbuja.addEventListener("animationend", function() {
+        burbuja.remove();
+    });
+}
+
+btnApoyo.addEventListener("click", function() {
+    btnApoyo.classList.add("apoyado");
+    localStorage.setItem(CLAVE_APOYO, "1");
+
+    const totalActual = Number(localStorage.getItem(CLAVE_TOTAL_APOYOS) || 0) + 1;
+    localStorage.setItem(CLAVE_TOTAL_APOYOS, String(totalActual));
+    localStorage.setItem(CLAVE_ULTIMO_APOYO, new Date().toLocaleString("es-CL", { timeZone: "America/Santiago" }));
+
+    lanzarBurbujaOxigeno();
+});
 
 
 // =====================================
